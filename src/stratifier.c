@@ -5410,6 +5410,14 @@ static void client_auth(ckpool_t *ckp, stratum_instance_t *client, user_instance
 	if (ret) {
 		client->authorised = ret;
 		user->authorised = ret;
+
+		client->best_diff = 0.0;
+		if (user) {
+			user->best_diff = 0.0;
+		}
+		if (client->worker_instance) {
+			client->worker_instance->best_diff = 0.0;
+		}
 		if (ckp->proxy) {
 			LOGNOTICE("Authorised client %s to proxy %d:%d, worker %s as user %s",
 				  client->identity, client->proxyid, client->subproxyid,
@@ -8407,9 +8415,6 @@ void *throbber(void *arg)
 	sdata_t *sdata = ckp->sdata;
 	int counter = 0;
 
-	if (ckp->quiet)
-		goto out;
-
 	rename_proc("throbber");
 
 	while (42) {
@@ -8438,7 +8443,7 @@ void *throbber(void *arg)
 		}
 		fflush(stdout);
 	}
-out:
+
 	return NULL;
 }
 
