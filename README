@@ -1,3 +1,13 @@
+### Dockerized [CKPOOL](https://bitbucket.org/ckolivas/ckpool-solo/src/solobtc/)
+
+#### Docker Build
+
+```
+docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/duckaxe/ckpool-solo:main --push .
+```
+
+---
+
 CKPOOL + CKPROXY + libckpool by Con Kolivas
 
 Ultra low overhead massively scalable multi-process, multi-threaded modular
